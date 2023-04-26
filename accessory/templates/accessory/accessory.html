@@ -1,0 +1,3 @@
+{% for accessory in accessories %}
+<a href = "{% url "specialaccessory" accessory.id%}">{{ accessory.name }} {{ accessory.img.url }}</a>
+{% endfor %}
