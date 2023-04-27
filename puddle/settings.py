@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'Music',
     'Dashboard',
     'accessory',
-    'tailwind',
-    'theme',
 ]
 
 MIDDLEWARE = [
