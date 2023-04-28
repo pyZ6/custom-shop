@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>{% block title %} {% endblock %} | Lazzy shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    body {
+      background-image: linear-gradient(to left, #450049 50%, #250130);
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    footer {
+      margin-bottom: 80px;
+    }
+
+    .css2 {
+      color: #eee;
+      background-color: transparent;
+      font-size: 26px;
+      font-family: Leelawadee UI Semilight;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: 4px;
+      border-radius: 30px;
+      width: 160px;
+      padding: 8px 0;
+    }
+
+    .flexbox {
+      background: linear-gradient(155deg, #4f3660, #400d57, #51337b);
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      box-shadow: 0 0 10px 0 #000;
+    }
+
+    .search {
+      margin: auto;
+    }
+
+    .search>h3 {
+      font-weight: normal;
+    }
+
+    .search>h1,
+    .search>h3 {
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .search>div {
+      display: inline-block;
+      position: relative;
+    }
+
+    .search>div:after {
+      content: "";
+      background: white;
+      width: 4px;
+      height: 22px;
+      position: absolute;
+      top: 24px;
+      right: -4px;
+      transform: rotate(135deg);
+    }
+
+    .search>div>input {
+      color: white;
+      font-size: 16px;
+      background: transparent;
+      width: 30px;
+      height: 30px;
+      padding: 15px;
+      border: solid 3px white;
+      outline: none;
+      border-radius: 35px;
+      transition: all 0.5s;
+    }
+
+    .search>div>input::placeholder {
+      color: #efefef;
+      opacity: 0;
+      transition: opacity 150ms ease-out;
+    }
+
+    .search>div>input:focus::placeholder {
+      opacity: 1;
+    }
+
+    .search>div>input:focus,
+    .search>div>input:not(:placeholder-shown) {
+      width: 350px;
+    }
+
+    .search>div button {
+      opacity: 0;
+      pointer-events: none;
+      transition: all .4s;
+    }
+
+    .search>div>input:focus~button {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .search>div>button:focus {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+
+    .shapes {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    @keyframes move {
+      0% {
+        opacity: 1;
+      }
+
+      70% {
+        opacity: .7;
+      }
+
+      90% {
+        opacity: .4;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(0);
+      }
+
+    }
+
+    .shapes div {
+      width: 15px;
+      height: 15px;
+      background-color: rgba(255, 255, 255, .6);
+      position: absolute;
+      transform: translateY(100px);
+      border-radius: 50%;
+      animation: move 5s linear infinite;
+      box-shadow: 0 0 2px 0 #000 inset;
+      z-index: -1;
+    }
+
+    .shapes div:nth-child(1) {
+      left: 15%;
+      animation-duration: 2s;
+    }
+
+    .shapes div:nth-child(2) {
+      left: 25%;
+      animation-duration: 3s;
+    }
+
+    .shapes div:nth-child(3) {
+      left: 20%;
+    }
+
+    .shapes div:nth-child(4) {
+      left: 80%;
+      animation-duration: 6s;
+    }
+
+    .shapes div:nth-child(5) {
+      left: 10%;
+      animation-duration: 5s;
+    }
+
+    .shapes div:nth-child(6) {
+      left: 35%;
+      animation-duration: 4s;
+      animation-delay: 2s;
+    }
+
+    .shapes div:nth-child(7) {
+      left: 70%;
+      animation-delay: 2s;
+      animation-duration: 6s;
+    }
+
+    .shapes div:nth-child(8) {
+      right: 50%;
+      animation-delay: 1s;
+      animation-duration: 3s;
+    }
+
+    .shapes div:nth-child(9) {
+      right: 10%;
+      animation-duration: 1s;
+      animation-delay: 2s;
+    }
+
+    .shapes div:nth-child(10) {
+      right: 40%;
+      animation-delay: 1s;
+      animation-duration: 4s;
+    }
+
+    .shapes div:nth-child(16) {
+      right: 50%;
+      animation-delay: 2s;
+      animation-duration: 2s;
+    }
+
+    .shapes div:nth-child(12) {
+      right: 80%;
+      animation-delay: 2s;
+      animation-duration: 3s;
+    }
+
+    .shapes div:nth-child(18) {
+      left: 19%;
+      animation-duration: 2s;
+    }
+
+    .shapes div:nth-child(14) {
+      left: 40%;
+      animation-duration: 4s;
+      animation-delay: 1s;
+    }
+
+    .shapes div:nth-child(20) {
+      left: 29%;
+      animation-delay: 1s;
+    }
+
+    .shapes div:nth-child(11) {
+      left: 60%;
+      animation-duration: 1s;
+      animation-delay: 2s;
+    }
+
+    .shapes div:nth-child(22) {
+      left: 55%;
+      animation-duration: 2s;
+      animation-delay: 1s;
+    }
+
+    .shapes div:nth-child(13) {
+      left: 5%;
+      animation-duration: 3s;
+      animation-delay: 2s;
+    }
+
+    .shapes div:nth-child(23) {
+      left: 45%;
+      animation-delay: 1s;
+      animation-duration: 4s;
+    }
+
+    .shapes div:nth-child(15) {
+      right: 5%;
+      animation-delay: 2s;
+      animation-duration: 2s;
+    }
+
+    .shapes div:nth-child(24) {
+      right: 1%;
+      animation-duration: 3s;
+      animation-delay: 2s;
+    }
+
+    .shapes div:nth-child(17) {
+      right: 47%;
+      animation-delay: 1s;
+      animation-duration: 1s;
+    }
+
+    .shapes div:nth-child(19) {
+      right: 24%;
+      animation-delay: 2s;
+      animation-duration: 2s;
+    }
+
+    .shapes div:nth-child(21) {
+      right: 72%;
+      animation-delay: 1s;
+      animation-duration: 3s;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 5px 20px;
+      background-color: rgb(255, 132, 0);
+      color: #fff;
+      transition: all 0.4s;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 999;
+    }
+
+    .btn::after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: rgb(189, 191, 189);
+      position: absolute;
+      border-radius: 6px;
+      transition: all 0.4s;
+      top: 0;
+      right: 0;
+      transform: translateY(-100px);
+      transform: rotate(-90deg);
+      transform-origin: 100% 100%;
+      z-index: -1;
+    }
+
+    .btn:hover {
+      color: #000;
+    }
+
+    .btn:hover::after {
+      transform: translateY(0px);
+      transform: rotate(0deg);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="py-3 px-6 flex justify-between items-center border-b border-gray-500 relative">
+
+    <div class="shapes">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <a href="/" class="text-xl font-semibold font-color-red">
+      <marquee class="css2">Lazzy</marquee>
+    </a>
+
+
+    <div class="flex items-center">
+      {% if request.user.is_authenticated %}
+      <a href="#" class="btn mr-3">INBOX</a>
+      <a href="#" class="btn">DASHBOARD</a>
+      {% else %}
+      <a href="{% url 'core:signup' %}" class="btn mr-3">Sign Up</a>
+      <a href="{% url 'core:login'%}" class="btn">Login</a>
+      {% endif %}
+    </div>
+
+  </nav>
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+  <footer class="mt-6 py-6 px-6 flex justify-between bg-gray-400">
+    <div class="w-full pr-10 text-center">
+      <!-- <h3 class="mb-5 font-semibold text-gray-400">About:</h3> -->
+      <p class="text-lg text-purple-800 capitalize">the Lazzy shop is the amazing shop in <strong>mashhad</strong> city</p>
+      <!-- <p class="text-lg text-red-500">Owner: mehdi mehr</p> -->
+      <p class="text-lg text-black"><i class="fa fa-instagram" style="font-size: 22px;"></i> <strong>mehdimehr</strong></p>
+    </div>
+    <!-- <div class="w-1/3">
+      <h3 class="mb-5 font-semibold text-gray-400">Menu:</h3>
+
+      <ul class="space-y-2">
+        <li><a href="#" class="text-lg text-teal-500 hover: text-teal-700">About</a></li>
+        <li><a href="{% url 'core:contact'%}" class="text-lg text-teal-500 hover: text-teal-700">Contact</a></li>
+        <li><a href="#" class="text-lg text-teal-500 hover: text-teal-700">Privacy Policy</a></li>
+        <li><a href="#" class="text-lg text-teal-500 hover: text-teal-700">Term of use</a></li>
+      </ul>
+    </div> -->
+  </footer>
+
+  <form class="lazyinput" method=POST action="{% url 'item:search' %}">
+    {% csrf_token %}
+
+    <div class="flexbox">
+      <div class="search">
+        <div class="relative">
+          <input type="search" id="default-search" name="searched" placeholder="Search . . ." required>
+          <button class="absolute right-3 top-[50%] translate-y-[-50%]" type="submit" style="border-radius: 35px;">
+            <i class="fa fa-search" style="color: rgb(255, 132, 0);"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</body>
+
+</html>
