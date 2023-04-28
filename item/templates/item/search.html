@@ -1,33 +1,31 @@
 {% extends 'core/base.html' %}
 {% block content %}
 {% if searched %}
-    <h1>you searched for {{ searched }}</h1><br/>
+<h1 class="text-center text-3xl text-white">you searched for {{ searched }}</h1><br />
+<div class="row">
     {% for item in items %}
-    <div class="grid grid-cols-5 gap-6">
-        <div class="col-span-3">
-            <img src="{{ item.image.url }}" class="rounded-xl">
-        </div>
-        <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
-            <h1 class="mb-6 text-3xl">{{ item.name }}</h1>
-            <p class="text-gray-500"><strong>Price: </strong>{{ item.price }}</p>
-            <p class="text-gray-500"><strong>Seller: </strong>{{ item.created_by.username }}</p>
-            {% if item.description %}
-            <p class="text-gray-700">
-                <strong class="text-gray-500">Description: </strong><br>
-                {{ item.description }}
-            </p>
-            <div class="button-78">
-                <button role="button">Add to Dashboard</button>
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-10">
+        <div class="card overflow-hidden rounded-xl">
+            <div class="relative img-container overflow-hidden">
+                <img src="{{ item.image.url }}"
+                    class="rounded-t-xl w-full h-[300px] object-cover hover:scale-105 transition-all">
+                <div
+                    class="img-btns flex flex-col items-center justify-center absolute top-0 transition-all w-full h-full">
+                    <button class="btn " role="button">Add to Dashboard</button>
+                    <a href="{% url 'item:detail' item.id %}" class="btn mt-3">
+                        Details
+                    </a>
+                </div>
             </div>
-            {% endif %}
-    
-            <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-blue-600">Contact Seller</a>
+            <h2 class="text-3xl mt-4 mb-8 text-center" style="color: rgb(255, 132, 0);">{{ item.name }}</h2>
+            <p class="text-gray-200 mb-4 text-center">Price: {{ item.price }} $</p>
         </div>
-    </div><br/>
+    </div>
     {% endfor %}
+</div>
 {% else %}
-    <h1> you forgot to search </h1>
-    <br/>
+<h1> you forgot to search </h1>
+<br />
 
 {% endif %}
 

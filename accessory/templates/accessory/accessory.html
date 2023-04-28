@@ -1,3 +1,10 @@
+{% extends 'core/base.html' %}
+{% block content %}
 {% for accessory in accessories %}
-<a href = "{% url "specialaccessory" accessory.id%}">{{ accessory.name }} {{ accessory.img.url }}</a>
+{{ accessory.name }}<br>
+{{ accessory.description }}<br>
+{{ accessory.count }}<br>
+<img src="{{ accessory.img.url }}">
+{{ accessory.price }}
 {% endfor %}
+{% endblock %}
