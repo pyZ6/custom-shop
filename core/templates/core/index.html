@@ -19,7 +19,7 @@
                         class="rounded-t-xl w-full h-[300px] object-cover hover:scale-105 transition-all">
                     <div
                         class="img-btns flex flex-col items-center justify-center absolute top-0 transition-all w-full h-full">
-                        <button class="btn " role="button">Add to Dashboard</button>
+                        <button class="btn add-to-cart-btns" value="{{ item.id }}" role="button">Add to Dashboard</button>
                         <a href="{% url 'item:detail' item.id %}" class="btn mt-3">
                             Details
                         </a>

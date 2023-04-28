@@ -370,7 +370,7 @@
       transition: all .5s;
     }
 
-    .toggle-menu{
+    .toggle-menu {
       background-color: rgb(255, 132, 0);
     }
   </style>
@@ -413,13 +413,14 @@
 
 
     <div class="flex items-center top-menu">
-      <button class="mr-3 p-3 toggle-menu text-3xl text-white outline-none w-[25px] h-[25px] rounded-full flex items-center justify-center">
+      <button
+        class="mr-3 p-3 toggle-menu text-3xl text-white outline-none w-[25px] h-[25px] rounded-full flex items-center justify-center">
         <i class="fa fa-angle-right" aria-hidden="true"></i>
       </button>
       <a class="text-2xl text-white mr-4">
         <i class="fa fa-heart"></i>
       </a>
-      <a class="shop-cart-btn mr-5 text-white text-2xl cursor-pointer relative">
+      <a href="{% url 'core:cart' %}" class="shop-cart-btn mr-5 text-white text-2xl cursor-pointer relative">
         <i class="fa fa-shopping-cart"></i>
         <span
           class="absolute top-[-7px] right-[-10px] w-[20px] h-[20px] rounded-full text-[14px] flex items-center justify-center"
@@ -476,12 +477,62 @@
       if (openMenu) {
         topMenu.style.transform = "translateX(0)";
         toggleBtn.innerHTML = "<i class='fa fa-angle-right'></i>"
-      }else{
+      } else {
         topMenu.style.transform = "translateX(95%)"
         toggleBtn.innerHTML = "<i class='fa fa-angle-left'></i>"
       }
 
     })
+
+
+
+
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+
+    const btns = document.querySelectorAll('.add-to-cart-btns')
+    btns.forEach(btn => {
+      btn.addEventListener('click', addToCart)
+    })
+    async function addToCart(e) {
+      let productId = e.target.value;
+      let url = "/add_to_cart/";
+
+      let data = { id: productId };
+
+      // const x = await fetch(url, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json", "X-CSRFToken": csrftoken },
+      //   body: JSON.stringify(data)
+      // })
+
+      // console.log(x);
+
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-CSRFToken": csrftoken },
+        body: JSON.stringify(data)
+      }).then(res => console.log(res))
+        // .then(data => {
+        //   console.log(data);
+        // })
+
+    }
   </script>
 
 </body>
