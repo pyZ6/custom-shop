@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'core/base.html' %}
 {% block content %}
 {% for accessory in accessories %}
@@ -8,3 +9,31 @@
 {{ accessory.price }}
 {% endfor %}
 {% endblock %}
+=======
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: lightyellow;
+        }
+    </style>
+<title>Lazzy accessory</title>
+
+</head>
+<body>
+<h1>this is Lazzzy Accessory</h1>
+{% for accessory in accessories %}
+<ul>
+    <li>
+       <a href="{% url 'specialaccessory' accessory.id %}"> {{ accessory.id }}--{{ accessory.name }} </a> 
+    </li>
+</ul>
+{% endfor %}
+</body>
+</html>
+>>>>>>> 8d3682985df26302c79473551e49d3421eafd704
