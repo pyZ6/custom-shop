@@ -1,3 +1,8 @@
-{% for item in Items %}
+{% extends 'core/base.html'%}
+
+{% block content %}
+{% for item in items %}
 <img src="{{ item.product.image.url }}" >
+
 {% endfor %}
+{% endblock %}

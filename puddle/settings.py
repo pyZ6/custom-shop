@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Music',
     'Dashboard',
     'accessory',
+    'post',
 ]
 
 MIDDLEWARE = [
