@@ -1,8 +1,108 @@
 {% extends 'core/base.html'%}
 
 {% block content %}
-{% for item in items %}
-<img src="{{ item.product.image.url }}" >
+<style>
+    .cart-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-{% endfor %}
+    .fullscreen-img {
+        transition: all .4s;
+        background-color: rgba(0, 0, 0, .5);
+        z-index: 9999999999999999999;
+    }
+
+    .btn-cart{
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 20px;
+        border: 2px solid rgb(255, 132, 0);
+        transition: all .3s;
+    }
+
+    .btn-cart:hover{
+        background-color: rgb(255, 132, 0);
+    }
+</style>
+<div class="flex items-center justify-center absolute top-[-100%] left-0 w-full h-[100vh] fullscreen-img">
+    <img src="" class="rounded-md">
+    <i class="fa fa-close absolute top-3 right-3 text-white text-3xl cursor-pointer"></i>
+</div>
+<div class="flex">
+    <div class="flex flex-col items-center justify-evenly flex-1 mt-9 text-white border border-solid border-white rounded-xl mr-3 h-[200px]">
+        <p>Total items : 5</p>
+        <p>Total prices : 291 $</p>
+        <button class="btn">Checkout</button>
+    </div>
+    <div class="mt-6" style="flex: 3;">
+        {% for item in items %}
+        <div class="card cart-card mt-3 pr-3 overflow-hidden rounded-xl">
+            <div class="relative w-[30%] img-container overflow-hidden">
+                <img src="{{ item.product.image.url }}"
+                    class="h-[200px] w-full object-cover hover:scale-105 transition-all">
+                <div
+                    class="img-btns flex flex-col items-center justify-center absolute top-0 transition-all w-full h-full">
+                    <button class="btn fullscreen-img-btn" value="{{ item.product.image.url }}" role="button">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-center items-center">
+                <h2 class="text-4xl" style="color: rgb(255, 132, 0); letter-spacing: 3px;">{{ item.product.name }}</h2>
+                <p class="text-gray-200 mt-3 text-xl">{{ item.product.price }} $</p>
+            </div>
+
+            <div class="flex items-center justify-center">
+                <button class="btn-cart">
+                    +
+                </button>
+                <span class="mx-3 text-white text-xl">1</span>
+                <button class="btn-cart">-</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    const fullscreenBtns = document.querySelectorAll(".fullscreen-img-btn");
+    const fullscreenImgDiv = document.querySelector(".fullscreen-img");
+    const fullscreenImg = fullscreenImgDiv.querySelector("img");
+    let showFullscreen = false;
+
+    fullscreenBtns.forEach(fullscreenBtn => {
+        fullscreenBtn.addEventListener("click", showImageFullscreen);
+    })
+
+    function showImageFullscreen(e) {
+        showFullscreen = !showFullscreen;
+
+        if (showFullscreen) {
+            fullscreenImgDiv.style.top = window.scrollY + "px";
+            fullscreenImg.src = e.target.value;
+            document.body.style.overflowY = "hidden";
+        } else {
+            fullscreenImgDiv.style.top = "-100%";
+            document.body.style.overflowY = "auto";
+        }
+    }
+
+    fullscreenImgDiv.addEventListener("click", () => {
+        showFullscreen = false;
+        fullscreenImgDiv.style.top = "-100%";
+        document.body.style.overflowY = "auto";
+    })
+
+    fullscreenImg.addEventListener("click", (e) => e.stopPropagation())
+
+</script>
 {% endblock %}
