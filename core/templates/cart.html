@@ -1,6 +1,7 @@
 {% extends 'core/base.html'%}
 
 {% block content %}
+
 <style>
     .cart-card {
         display: flex;
@@ -32,18 +33,22 @@
         background-color: rgb(255, 132, 0);
     }
 </style>
+
 <div class="flex items-center justify-center absolute top-[-100%] left-0 w-full h-[100vh] fullscreen-img">
     <img src="" class="rounded-md">
     <i class="fa fa-close absolute top-3 right-3 text-white text-3xl cursor-pointer"></i>
 </div>
 <div class="flex">
     <div class="flex flex-col items-center justify-evenly flex-1 mt-9 text-white border border-solid border-white rounded-xl mr-3 h-[200px]">
-        <p>Total items : 5</p>
-        <p>Total prices : 291 $</p>
+        <p>Total items : {{ my_integer }}</p>
+        <p>Total prices :{{sum}}</p>
         <button class="btn">Checkout</button>
     </div>
     <div class="mt-6" style="flex: 3;">
+        {% comment %} {% with total_price = 0 %} {% endcomment %}
+        
         {% for item in items %}
+        {% comment %} {{total_price}} = {{ item.product.price }} + {{ total_price }}  {% endcomment %}
         <div class="card cart-card mt-3 pr-3 overflow-hidden rounded-xl">
             <div class="relative w-[30%] img-container overflow-hidden">
                 <img src="{{ item.product.image.url }}"
@@ -70,9 +75,11 @@
             </div>
         </div>
         {% endfor %}
+        {% comment %} {% endwith %} {% endcomment %}
     </div>
 </div>
 
+{% comment %} <p>{{ total_price }}</p> {% endcomment %}
 <script>
     const fullscreenBtns = document.querySelectorAll(".fullscreen-img-btn");
     const fullscreenImgDiv = document.querySelector(".fullscreen-img");
@@ -105,4 +112,5 @@
     fullscreenImg.addEventListener("click", (e) => e.stopPropagation())
 
 </script>
+
 {% endblock %}

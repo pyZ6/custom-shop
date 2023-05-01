@@ -50,3 +50,7 @@ class Album(models.Model):
     image = models.ImageField(upload_to='Album_images',blank=True, null=True)
     def __str__(self):
         return self.name
+    #python manage.py shell
+    #item.objects.count() return the number of items
+    #item.objects.filter(category__name="Shoes") return only items with shoes category
+    #from django.db.models import Avg, Max
