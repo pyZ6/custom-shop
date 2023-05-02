@@ -19,6 +19,7 @@ class Item(models.Model):
     is_sold = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    quantity = models.IntegerField(default=0)
     def __str__(self):
         return self.name
 class Cart(models.Model):
@@ -27,12 +28,28 @@ class Cart(models.Model):
     completed = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)
+    @property
+    def total_price(self):
+        cartitems = self.cartitems.all()
+        total = sum([item.price for item in cartitems])
+        return total
+    @property
+    def num_of_items(self):
+        cartitems = self.cartitems.all()
+        quantity = sum([item.quantity for item in cartitems])
+        return quantity
 class CartItem(models.Model):
     product = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="items")
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cartitems')
-    quantity = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=1)
     def __str__(self):
         return self.product.name
+    
+    @property
+    def price(self):
+        new_price = self.product.price * self.quantity
+        return new_price
+    
 class Musician(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=100)

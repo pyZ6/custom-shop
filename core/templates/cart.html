@@ -40,8 +40,8 @@
 </div>
 <div class="flex">
     <div class="flex flex-col items-center justify-evenly flex-1 mt-9 text-white border border-solid border-white rounded-xl mr-3 h-[200px]">
-        <p>Total items : {{ my_integer }}</p>
-        <p>Total prices :{{sum}}</p>
+        <p>Total items : {{ cart.num_of_items }}</p>
+        <p>Total prices :{{cart.total_price}}</p>
         <button class="btn">Checkout</button>
     </div>
     <div class="mt-6" style="flex: 3;">
@@ -70,7 +70,7 @@
                 <button class="btn-cart">
                     +
                 </button>
-                <span class="mx-3 text-white text-xl">1</span>
+                <span class="mx-3 text-white text-xl">{{ item.quantity }}</span>
                 <button class="btn-cart">-</button>
             </div>
         </div>

@@ -49,13 +49,15 @@ def cart(request):
         for i in cartitems:
             j = str(i)
             namelist.append(j)
-        for i in namelist:
-            print(i)
-        print(namelist)
+        # for i in namelist:
+        #     print(i)
+        # print(namelist)
         sum = 0
         basket = Item.objects.filter(name__in=namelist)
         for i in basket:
-            sum+=i.price
+            print("i.quantity => "+str(i.quantity))
+            x= i.price * i.quantity
+            sum = sum + x
 
         my_integer = len(namelist)
         print("this line is execurted")
@@ -74,13 +76,17 @@ def add_to_cart(request):
     productId = data["id"]
     prices = list()
     product = Item.objects.get(id=productId)
+    print()
+
     # return JsonResponse(request.user.is_authenticated, safe=False)
     # print(request.user.is_authenticated)
 
     if request.user.is_authenticated:
+        product.quantity += 1
+        # print(product)
         cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
         cartItem, created = CartItem.objects.get_or_create(cart=cart, product=product)
-        cartItem.quantity += 1
+        # cartItem.quantity += 1
         cartItem.save()
         return JsonResponse(cartItem, safe=False)
 

@@ -425,7 +425,7 @@
         <i class="fa fa-shopping-cart"></i>
         <span
           class="absolute top-[-7px] right-[-10px] w-[20px] h-[20px] rounded-full text-[14px] flex items-center justify-center"
-          style="background-color: rgb(255, 132, 0);">0</span>
+          style="background-color: rgb(255, 132, 0);">{{ cart.num_of_items }}</span>
       </a>
       {% if request.user.is_authenticated %}
       <a href="#" class="btn mr-3">INBOX</a>
@@ -444,7 +444,7 @@
   </div>
   <footer class="mt-6 py-6 px-6 flex justify-between bg-gray-400">
     <div class="w-full pr-10 text-center">
-      <p class="text-lg text-purple-800 capitalize">the oody shop is the amazing shop in <strong>mashhad</strong> city
+      <p class="text-lg text-purple-800 capitalize">the Lazzy shop is the amazing shop in <strong>mashhad</strong> city
       </p>
       <p class="text-lg text-black"><i class="fa fa-instagram" style="font-size: 22px;"></i> <strong>mehdimehr</strong>
       </p>
