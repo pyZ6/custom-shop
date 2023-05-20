@@ -11,7 +11,7 @@ def items(request):
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
-    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:100]
+    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:]
     return render(request, 'item/detail.html', {
         'item':item,
         'related_items':related_items
@@ -37,7 +37,7 @@ def new(request):
 def search_form(request):
     if request.method == 'POST':
         searched = request.POST['searched']
-        items = Item.objects.filter(name__contains = searched)
+        items = Item.objects.filter(name__icontains = searched)
         return render(request, "item/search.html", {'searched':searched, 'items':items} )
     else:
         searched = request.POST['searched']

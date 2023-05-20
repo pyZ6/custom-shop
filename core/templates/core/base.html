@@ -14,7 +14,7 @@
 
   <style>
     body {
-      background-image: linear-gradient(to left, #450049 50%, #250130);
+      background-image: linear-gradient(to left, #F0F8FF 50%, #250130);
     }
 
     .bg {
@@ -331,7 +331,7 @@
     .btn {
       display: inline-block;
       padding: 5px 20px;
-      background-color: rgb(255, 132, 0);
+      background-color: #5F9EA0;
       color: #fff;
       transition: all 0.4s;
       border-radius: 6px;
@@ -418,11 +418,11 @@
         class="mr-3 p-3 toggle-menu text-3xl text-white outline-none w-[25px] h-[25px] rounded-full flex items-center justify-center">
         <i class="fa fa-angle-right" aria-hidden="true"></i>
       </button>
-      <a class="text-2xl text-white mr-4">
+      <!--<a class="text-2xl text-white mr-4">
         <i class="fa fa-heart"></i>
-      </a>
+      </a>-->
       <a href="{% url 'core:cart' %}" class="shop-cart-btn mr-5 text-white text-2xl cursor-pointer relative">
-        <i class="fa fa-shopping-cart"></i>
+        <i class="fa fa-heart"></i>
         <span
           class="absolute top-[-7px] right-[-10px] w-[20px] h-[20px] rounded-full text-[14px] flex items-center justify-center"
           style="background-color: rgb(255, 132, 0);">{{ cart.num_of_items }}</span>

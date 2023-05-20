@@ -16,9 +16,7 @@
         {% if item.description %}
         <p class="text-gray-700">
             <strong class="text-gray-500">Description: </strong><br>
-            {{ item.description }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo possimus, rem nostrum
-            dignissimos pariatur laboriosam delectus quidem quos voluptas ea commodi qui, consequuntur distinctio natus,
-            totam voluptatem voluptate officia! Laudantium.
+            {{ item.description }} 
         </p>
         {% endif %}
 
@@ -29,7 +27,7 @@
     </div>
 </div>
 <div class="mt-6 px-6 rounded-xl">
-    <h2 class="text-4xl text-white text-center">Related Items</h2>
+    <h2 class="text-4xl text-black text-center">Related Items</h2>
     <div class="row">
         {% for item in related_items %}
         <div class="col-sm-6 col-md-4 col-lg-3 mt-10">
